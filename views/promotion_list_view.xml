@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_promotion_view" model="ir.actions.act_window">
+        <field name="name">Promociones</field>
+        <field name="res_model">promotion</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="promotion_list_view"/>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <record id="promotion_list_view" model="ir.ui.view">
+        <field name="name">promotion.list.view</field>
+        <field name="model">promotion</field>
+        <field name="arch" type="xml">
+            <list string="Promociones" create="true" edit="true" delete="true">
+                <header>
+                    <button name="%(action_promotion_kanban_view)d" type="action" string="Kanban" display="always" class="oe_highlight"/>
+                </header>
+                <field name="name"/>
+                <field name="active" required="False"/>
+                <field name="discount"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="product_id"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem id="menu_sale_promotion" name="Promociones" parent="sale.sale_menu_root" action="action_promotion_view" sequence="40">
+    </menuitem>
+</odoo>

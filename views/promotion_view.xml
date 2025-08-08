@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_promotion_report" model="ir.actions.report">
+        <field name="name">Reporte de Promociones</field>
+        <field name="model">promotion</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">retail_promotions.promotion_report_template</field>
+        <field name="report_file">retail_promotions.promotion_report_template</field>
+        <field name="binding_model_id" ref="model_promotion"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="promotion_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Reporte de la promocion: <span t-field="o.name"/></h2>
+                        <table class="table">
+                            <tr>
+                                <th>Descuento</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha de Cierre</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-field="o.discount"/>%</td>
+                                <td>
+                                    <span t-field="o.date_start"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.date_end"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <span>Productos incluidos en la promocion:</span>
+                        <table class="table">
+                            <t t-foreach="o.product_id" t-as="product" t-key="product.id">
+                                <tr>
+                                    <td>
+                                        <t t-esc="product.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                            <!--<p>Field 1: <span t-field="o.active"/>
+                            </p>
+                            <p>Field 2: <span t-field="o.discount"/>
+                            </p>
+                            <p>Field 2: <span t-field="o.discount"/>
+                            </p>
+                            <p>Field 2: <span t-field="o.date_start"/>
+                            </p>
+                            <p>Field 2: <span t-field="o.date_end"/>
+                            </p>
+                            <p>Field 2: <span t-field="o.product_id"/>
+                            </p>-->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+        <record id="promotion_form_view" model="ir.ui.view">
+            <field name="name">promotion.form.view</field>
+            <field name="model">promotion</field>
+            <field name="arch" type="xml">
+                <form string="Promociones" create="true" edit="true" delete="true">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="discount"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="product_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </odoo>

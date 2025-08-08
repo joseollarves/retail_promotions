@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_promotion_kanban_view" model="ir.actions.act_window">
+        <field name="name">action.promotion.kanban.view</field>
+        <field name="res_model">promotion</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="promotion_kanban_view"/>
+    </record>
+
+    <record id="promotion_kanban_view" model="ir.ui.view">
+        <field name="name">promotion.kanban.view</field>
+        <field name="model">promotion</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="name" quick_create="true">
+                <header>
+                    <button name="%(action_promotion_view)d" type="action" string="List/Tree" display="always" class="oe_highlight"/>
+                </header>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="discount"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="product_id"/>
+
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="o_secondary">
+                                        <span>Descuento: <field name="discount"/>%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_content">
+                                <div class="o_kanban_primary_left">
+                                    <span>Estado: <field name="active"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_footer">
+                                <div class="o_kanban_left">
+                                    <span>Fecha de Inicio: <field name="date_start"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_right">
+                                    <span>Fecha de Cierre: <field name="date_end"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>
